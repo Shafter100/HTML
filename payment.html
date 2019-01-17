@@ -17,7 +17,6 @@
     div.header {
       min-width: 1024px;
       width: 100%;
-      margin: 10px 0;
       padding: 0;
       height: 50px;
       content: "";
@@ -28,9 +27,11 @@
     }
 
     div.inner_header {
+      /* position: relative;
+      top: -8px; */
       height: 100%;
       width: 1024px;
-      padding: 0 20px;
+      padding: 0px 20px;
       margin: auto;
       display: flex;
       flex-wrap: nowrap;
@@ -44,7 +45,6 @@
       width: 1024px;
       margin: auto;
       padding: 0 20px;
-      /* overflow: auto; */
     }
 
     h1,h2,h3,h4,h5,h6{
@@ -52,8 +52,16 @@
       font-weight: normal;
     }
 
+    div, span, p {
+      font-size: 15px;
+    }
+
     div.choose_payment h1, div.choose_payment h2 {
       text-align: center;
+    }
+
+    div.choose_payment h1 {
+      margin-bottom: -15px;
     }
 
     #logo {
@@ -89,12 +97,15 @@
       max-width: 350px;
       vertical-align: top; */
 
+      position: relative;
+      left: -17px;
       white-space: nowrap;
-
       height: 100%;
       line-height: 49px;
-      /* display: inline-block; */
-      /* overflow: auto; */
+    }
+
+    #user_name {
+      font-size: 18px;
     }
 
     #account_name:hover {
@@ -105,9 +116,6 @@
       color: #a5b4bb;
       font-weight: bold;
       height: 100%;
-      line-height: 49px;
-      /* float: right; */
-      /* display: inline-block; */
     }
 
     #exit_pic {
@@ -136,6 +144,7 @@
       background-color: #334290;
       border-radius: 15px;
       color: white;
+      height: 300px;
     }
 
     #every_10th {
@@ -152,6 +161,7 @@
 
     #back_btn {
         float: left;
+        position: absolute;
         color: #727A78;
         font-weight: bold;
     }
@@ -168,7 +178,7 @@
 
     .columns {
       position: relative;
-      top: 26px;
+      top: 0px;
       display: flex;
       flex-wrap: nowrap;
       justify-content: space-between;
@@ -188,6 +198,18 @@
       border: 3px solid #00C3EE;
       box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
       z-index: 2;
+    }
+    div.column_main h2 {
+      font-weight: bold;
+    }
+
+    #payment_main {
+      padding-top: 8px;
+    }
+
+    #price_main {
+      padding-top: 13px;
+      font-weight: bold;
     }
 
     div.column_main, div.column_side {
@@ -259,6 +281,7 @@
       position: relative;
       padding: 0 0 0 30px;
       cursor: pointer;
+      user-select: none;
     }
 
     .autobuy + label:before {
@@ -294,8 +317,8 @@
 
     #gift {
       position: relative;
-      top: 6px;
-      left: 20px;
+      top: 4px;
+      left: 15px;
       background-image: url('gift_back.svg');
       background-repeat: no-repeat;
       background-position: 40px 0px;
@@ -303,9 +326,48 @@
       line-height: 49px;
 
       color: #fff;
+      font-size: 15px;
       font-weight: bold;
     }
 
+    #badge {
+      position: absolute;
+      top: -22px;
+      right: 286px;
+      width: 78px;
+      height: 78px;
+      line-height: 75px;
+      color: #fff;
+      font-weight: bold;
+      background-image: url('badge.svg');
+      background-repeat: no-repeat;
+      background-position: 0px 0px;
+      transform: matrix(0.91, 0.42, -0.43, 0.91, 0, 0);
+    }
+
+    #grisha {
+      position: absolute;
+      top: -39px;
+      right: 369px;
+      width: 61.5px;
+      height: 39px;
+      /* line-height: 75px; */
+      background-image: url('grisha.svg');
+      background-repeat: no-repeat;
+      background-position: 0px 0px;
+    }
+
+    #claws {
+      position: absolute;
+      top: -6px;
+      right: 360px;
+      width: 78.5px;
+      height: 14px;
+      /* line-height: 75px; */
+      background-image: url('claws.svg');
+      background-repeat: no-repeat;
+      background-position: 0px 0px;
+    }
   </style>
 </head>
 
@@ -318,7 +380,7 @@
       <div id="account_name">
         <span id="userpic_img"></span>
         <!-- <img src="userpic.svg" alt="Acc pic" id="userpic_img">  <!-- style="vertical-align: middle; padding: 0 5px;" -->
-        <span>Константин Константинопольский</span>
+        <span id="user_name">Константин Константинопольский</span>
       </div>
       <div id="exit_btn">
         <span style="padding-right: 3px;">Выйти</span>
@@ -348,16 +410,17 @@
   <div class="offer">
     <div class="offer_header">
       <div>
-      <h1>
+      <h1 style="white-space: nowrap;">
         Получите премиум до конца 4-го класса
       </h1>
       <h3>
-        При покупке премиума на год <strong id="every_10th">каждый 10-й участник</strong> получает премиум доступ до конца начальной школы.
+        При покупке премиума на год <strong id="every_10th">каждый 10-й участник</strong><br/>
+        получает премиум доступ до конца<br/>начальной школы.
       </h3>
       </div>
 
       <div class="timer">
-        <img src="timer.svg" alt="Timer">
+        <img src="timer.svg" alt="Timer"><br/>
         До конца акции
       </div>
     </div>
@@ -376,9 +439,13 @@
       </div>
 
       <div class="column_main">
+        <span id="grisha"></span>
+        <span id="claws"></span>
+        <span id="badge">Скидка</span>
+
         <h2>Целый год</h2>
-        <p>Оплата курса математики<br/>до 10 ноября 2020</p>
-        <p><span class="price">82 ₽</span><span class="price_text"> / месяц</span></p>
+        <p id="payment_main">Оплата курса математики<br/>до 10 ноября 2020</p>
+        <p id="price_main"><span class="price">82 ₽</span><span class="price_text"> / месяц</span></p>
         <p>К оплате: 990 ₽</p>
         <p><button type="button" name="buy_btn_c">Купить</button></p>
         <p>
