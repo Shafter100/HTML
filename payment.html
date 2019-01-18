@@ -15,31 +15,31 @@
     }
 
     div.header {
-      min-width: 1024px;
-      width: 100%;
+      min-width: 1024px; /*inner_header и так 1024px меньше*/
+      width: 100%; 
       padding: 0;
       height: 50px;
-      content: "";
-      clear: both;
+      content: ""; /*Зачем?*/
+      clear: both; /*Зачем?*/
       display: flex;
       align-items: center;
       border-bottom: 1px solid #dcdcdc;
     }
 
-    div.inner_header {
+    div.inner_header { /*лучше header_inner, с препроцессорами будет легче*/
       /* position: relative;
       top: -8px; */
       height: 100%;
       width: 1024px;
       padding: 0px 20px;
-      margin: auto;
+      margin: auto; /*Зачем?*/
       display: flex;
-      flex-wrap: nowrap;
+      flex-wrap: nowrap; /*По дефолту, можно не писать*/
       justify-content: space-between;
       align-items: center;
     }
 
-    div.inner_main {
+    div.inner_main { /*а где main?*/ 
       height: 100%;
       max-width: 1024px;
       width: 1024px;
@@ -61,7 +61,7 @@
     }
 
     div.choose_payment h1 {
-      margin-bottom: -15px;
+      margin-bottom: -15px; /*Если возможно, лучше сделать меньше отступ сверху для след блока*/
     }
 
     #logo {
@@ -419,7 +419,10 @@
       </h3>
       </div>
 
-      <div class="timer">
+      <div class="timer"> 
+
+        <!-- Лучше бы сверстал сам, не испльзуя картинку -->
+
         <img src="timer.svg" alt="Timer"><br/>
         До конца акции
       </div>
