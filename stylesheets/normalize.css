@@ -1,0 +1,9 @@
+input[type="checkbox"] {
+  display: none;
+}
+
+button {
+  border: none;
+  outline: none;
+  background: none;
+}
