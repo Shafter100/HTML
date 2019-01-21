@@ -1,400 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i&amp;subset=cyrillic" rel="stylesheet">
+  <link href="stylesheets/normalize.css" type="text/css" rel="stylesheet">
+  <link href="stylesheets/payment_style.css" type="text/css" rel="stylesheet">
   <title>Payment</title>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Noto Sans', sans-serif;
-    }
-
-    div.header {
-      min-width: 1024px; /*inner_header и так 1024px меньше*/
-      width: 100%; 
-      padding: 0;
-      height: 50px;
-      content: ""; /*Зачем?*/
-      clear: both; /*Зачем?*/
-      display: flex;
-      align-items: center;
-      border-bottom: 1px solid #dcdcdc;
-    }
-
-    div.inner_header { /*лучше header_inner, с препроцессорами будет легче*/
-      /* position: relative;
-      top: -8px; */
-      height: 100%;
-      width: 1024px;
-      padding: 0px 20px;
-      margin: auto; /*Зачем?*/
-      display: flex;
-      flex-wrap: nowrap; /*По дефолту, можно не писать*/
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    div.inner_main { /*а где main?*/ 
-      height: 100%;
-      max-width: 1024px;
-      width: 1024px;
-      margin: auto;
-      padding: 0 20px;
-    }
-
-    h1,h2,h3,h4,h5,h6{
-      font-style: normal;
-      font-weight: normal;
-    }
-
-    div, span, p {
-      font-size: 15px;
-    }
-
-    div.choose_payment h1, div.choose_payment h2 {
-      text-align: center;
-    }
-
-    div.choose_payment h1 {
-      margin-bottom: -15px; /*Если возможно, лучше сделать меньше отступ сверху для след блока*/
-    }
-
-    #logo {
-      display: inline-block;
-      height: 100%;
-      padding: 15px 0;
-      /* float: left; */
-    }
-
-    #back_img {
-      position: relative;
-      top: 5.5px;
-    }
-
-    #userpic_img {
-      position: relative;
-      top: 8px;
-      display: inline-block;
-      border-radius: 15px;
-      margin-right: 3px;
-      width: 30px;
-      height: 30px;
-      background-image: url("userpic.svg");
-      background-repeat: no-repeat;
-    }
-
-    #account_name {
-      /* background-image: url("userpic.svg");
-      backround-position: center right;
-      background-repeat: no-repeat;
-      background-size: 30px 30px;
-      padding-left: 40px;
-      max-width: 350px;
-      vertical-align: top; */
-
-      position: relative;
-      left: -17px;
-      white-space: nowrap;
-      height: 100%;
-      line-height: 49px;
-    }
-
-    #user_name {
-      font-size: 18px;
-    }
-
-    #account_name:hover {
-      cursor: pointer;
-    }
-
-    #exit_btn {
-      color: #a5b4bb;
-      font-weight: bold;
-      height: 100%;
-    }
-
-    #exit_pic {
-      position: relative;
-      top: 10px;
-      display: inline-block;
-      border-radius: 15px;
-      width: 30px;
-      height: 30px;
-      background-color: #a5b4bb;
-      background-image: url("exit_bgrnd.svg");
-      background-repeat: no-repeat;
-      background-position: 8px 8px;
-    }
-
-    #exit_btn:hover {
-      color: #FF5F6D;
-      cursor: pointer;
-    }
-
-    #exit_btn:hover #exit_pic {
-      background-color: #FF5F6D;
-    }
-
-    div.offer {
-      background-color: #334290;
-      border-radius: 15px;
-      color: white;
-      height: 300px;
-    }
-
-    #every_10th {
-      color: #FFCE4F;
-    }
-
-    .offer_header {
-      padding: 0 20px;
-      display: flex;
-      flex-wrap: nowrap;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    #back_btn {
-        float: left;
-        position: absolute;
-        color: #727A78;
-        font-weight: bold;
-    }
-
-    #back_btn:hover {
-      color: #FF6171;
-      cursor: pointer;
-    }
-
-    .timer {
-      text-align: center;
-      color: #929BCF;
-    }
-
-    .columns {
-      position: relative;
-      top: 0px;
-      display: flex;
-      flex-wrap: nowrap;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    div.column_side {
-      width: 31%;
-      border: 2px solid #A5B4BB;
-      z-index: 1;
-    }
-
-    div.column_main {
-      width: 38%;
-      height: 360px;
-      border-radius: 8px;
-      border: 3px solid #00C3EE;
-      box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
-      z-index: 2;
-    }
-    div.column_main h2 {
-      font-weight: bold;
-    }
-
-    #payment_main {
-      padding-top: 8px;
-    }
-
-    #price_main {
-      padding-top: 13px;
-      font-weight: bold;
-    }
-
-    div.column_main, div.column_side {
-      display: inline-block;
-      background-color: white;
-      color: black;
-      margin: 0;
-      padding: 0 10px;
-      text-align: center;
-    }
-
-    div.column_side#col_left {
-      border-radius: 8px 0px 0px 8px;
-      border-right: none;
-    }
-
-    div.column_side#col_right {
-      border-radius: 0px 8px 8px 0px;
-      border-left: none;
-    }
-
-    .columns h2 {
-      border-bottom: 1px solid #C4C4C4;
-      padding-bottom: 10px;
-      padding-top: 0;
-      margin-top: 10px;
-    }
-
-    .price {
-      font-size: 40px;
-      line-height: 42px;
-    }
-
-    .price_text {
-      font-size: 22px;
-    }
-
-    .columns button {
-      width: 144px;
-      height: 40px;
-      background: #62C3E8;
-      border-radius: 5px;
-      font-weight: bold;
-      line-height: 28px;
-      font-size: 17px;
-      color: white;
-      outline: none;
-      border: none;
-      cursor: pointer;
-    }
-
-    .column_main button {
-      background: #FF5F6D;
-    }
-
-    .column_side button:hover {
-      background: #4cbbe5;
-    }
-
-    .column_main button:hover {
-      background: #ff4656;
-    }
-
-    .autobuy {
-      display: none;
-    }
-
-    .autobuy + label {
-      position: relative;
-      padding: 0 0 0 30px;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    .autobuy + label:before {
-      content: '';
-      position: absolute;
-      top: 0px;
-      left: 0;
-      width: 16px;
-      height: 16px;
-      border-radius: 5px;
-      border: 2px solid #CDD1DA;
-    }
-
-    .autobuy:checked + label:before {
-      background: #5EC3EA;
-      border: none;
-      width: 20px;
-      height: 20px;
-    }
-
-    .autobuy:checked + label:after {
-      content: '';
-      position: absolute;
-      top: 1.5px;
-      left: 6px;
-      width: 6px;
-      height: 10px;
-      /* border-radius: 1.5px; */
-      border: solid #FFF;
-      border-width: 0 2px 2px 0;
-      transform: rotate(40deg);
-    }
-
-    #gift {
-      position: relative;
-      top: 4px;
-      left: 15px;
-      background-image: url('gift_back.svg');
-      background-repeat: no-repeat;
-      background-position: 40px 0px;
-      height: 40px;
-      line-height: 49px;
-
-      color: #fff;
-      font-size: 15px;
-      font-weight: bold;
-    }
-
-    #badge {
-      position: absolute;
-      top: -22px;
-      right: 286px;
-      width: 78px;
-      height: 78px;
-      line-height: 75px;
-      color: #fff;
-      font-weight: bold;
-      background-image: url('badge.svg');
-      background-repeat: no-repeat;
-      background-position: 0px 0px;
-      transform: matrix(0.91, 0.42, -0.43, 0.91, 0, 0);
-    }
-
-    #grisha {
-      position: absolute;
-      top: -39px;
-      right: 369px;
-      width: 61.5px;
-      height: 39px;
-      /* line-height: 75px; */
-      background-image: url('grisha.svg');
-      background-repeat: no-repeat;
-      background-position: 0px 0px;
-    }
-
-    #claws {
-      position: absolute;
-      top: -6px;
-      right: 360px;
-      width: 78.5px;
-      height: 14px;
-      /* line-height: 75px; */
-      background-image: url('claws.svg');
-      background-repeat: no-repeat;
-      background-position: 0px 0px;
-    }
-  </style>
 </head>
 
 <body>
-  <div class="header">
-    <div class="inner_header">
-      <div id="logo">
-        <a href="https://www.uchi.ru" target="_blank"><img id="logo_img" src="Logo.svg" alt="UCHi.ru"></a>
+  <header>
+    <div class="header_inner">
+      <div class="logo">
+        <a href="https://www.uchi.ru" target="_blank"><img class="logo_img" src="pics/Logo.svg" alt="UCHi.ru"></a>
       </div>
-      <div id="account_name">
-        <span id="userpic_img"></span>
-        <!-- <img src="userpic.svg" alt="Acc pic" id="userpic_img">  <!-- style="vertical-align: middle; padding: 0 5px;" -->
-        <span id="user_name">Константин Константинопольский</span>
+      <div class="account_name">
+        <span class="userpic_img"></span>
+        <span class="user_name">Константин Константинопольский</span>
       </div>
-      <div id="exit_btn">
-        <span style="padding-right: 3px;">Выйти</span>
-        <span id="exit_pic"></span>
-        <!-- <img src="exit_btn.svg" alt="Exit" id="exit_img">  <!-- style="vertical-align: middle; padding: 0 5px;" -->
-      </div>
+      <button class="exit_btn">
+        <span class="exit_span">Выйти</span>
+        <!-- <span class="exit_pic"></span> -->
+      </button>
     </div>
-  </div>
+  </header>
 
-  <div class="inner_main">
-    <div id="back_btn">
-      <img src="back.svg" alt="Back button" id="back_img">
+  <div class="main">
+    <button class="back_btn">
       Назад
-    </div>
+    </button>
 
     <div class="choose_payment">
       <h1>
@@ -410,26 +45,27 @@
   <div class="offer">
     <div class="offer_header">
       <div>
-      <h1 style="white-space: nowrap;">
+      <h1>
         Получите премиум до конца 4-го класса
       </h1>
       <h3>
-        При покупке премиума на год <strong id="every_10th">каждый 10-й участник</strong><br/>
+        При покупке премиума на год <strong class="every_10th">каждый 10-й участник</strong><br/>
         получает премиум доступ до конца<br/>начальной школы.
       </h3>
       </div>
 
-      <div class="timer"> 
-
-        <!-- Лучше бы сверстал сам, не испльзуя картинку -->
-
-        <img src="timer.svg" alt="Timer"><br/>
-        До конца акции
+      <div class="timer">
+        <!-- <img src="pics/timer.svg" alt="Timer"><br/> -->
+        <div class="timer_pic">
+          <span class="timer_panel"></span>
+          <span class="timer_panel"></span>
+        </div>
+        <div class="timer_text">До конца акции</div>
       </div>
     </div>
 
     <div class="columns">
-      <div class="column_side" id="col_left">
+      <div class="column_side col_left">
         <h2>Месяц</h2>
         <p>Оплата курса математики<br/>до 10 ноября 2020</p>
         <p><span class="price">258 ₽</span><span class="price_text"> / месяц</span></p>
@@ -442,25 +78,25 @@
       </div>
 
       <div class="column_main">
-        <span id="grisha"></span>
-        <span id="claws"></span>
-        <span id="badge">Скидка</span>
+        <span class="grisha"></span>
+        <span class="claws"></span>
+        <span class="badge">Скидка</span>
 
         <h2>Целый год</h2>
-        <p id="payment_main">Оплата курса математики<br/>до 10 ноября 2020</p>
-        <p id="price_main"><span class="price">82 ₽</span><span class="price_text"> / месяц</span></p>
+        <p class="payment_main">Оплата курса математики<br/>до 10 ноября 2020</p>
+        <p class="price_main"><span class="price">82 ₽</span><span class="price_text"> / месяц</span></p>
         <p>К оплате: 990 ₽</p>
         <p><button type="button" name="buy_btn_c">Купить</button></p>
         <p>
           <input type="checkbox" name="autobuy_c" class="autobuy" id="check_c" checked></input>
           <label for="check_c">Продлевать автоматически</label>
         </p>
-        <div id="gift">
+        <div class="gift">
           Подарок "Счет на лету"
         </div>
       </div>
 
-      <div class="column_side" id="col_right">
+      <div class="column_side col_right">
         <h2>Полгода</h2>
         <p>Оплата курса математики<br/>до 10 ноября 2020</p>
         <p><span class="price">226 ₽</span><span class="price_text"> / месяц</span></p>
